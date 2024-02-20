@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import tech.getarrays.employeemanager.exception.UserNotFoundException;
 import tech.getarrays.employeemanager.model.Employe;
 import tech.getarrays.employeemanager.repo.EmployeeRepo;
 
@@ -20,6 +21,10 @@ public class EmployeeService {
 	}
 	public List<Employe> findAllemploye(){
 		return empRepo.findAll();
+	}
+	public Employe findEmployeById(Long id) {
+		return empRepo.findEmployeById(id)
+				.orElseThrow(()-> new UserNotFoundException("User by id"+id+"was not found"));
 	}
 	public Employe updateEmploye(Employe emp) {
 		return empRepo.save(emp);
